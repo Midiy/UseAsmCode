@@ -59,10 +59,6 @@ namespace UseAsmCode
                 System.Reflection.BindingFlags.Public |
                 System.Reflection.BindingFlags.Static |
                 System.Reflection.BindingFlags.InvokeMethod, null, null, new object[] { 0, true });
-            //GCHandle firstHandle = GCHandle.Alloc(firstAsmArg, GCHandleType.Pinned);
-            //GCHandle secondHandle = GCHandle.Alloc(secondAsmArg, GCHandleType.Pinned);
-            //void* ptrFirst = (void*)firstHandle.AddrOfPinnedObject();
-            //void* ptrSecond = (void*)secondHandle.AddrOfPinnedObject();
             void* ptrFirst = ToPointer(ref firstAsmArg);
             void* ptrSecond = ToPointer(ref secondAsmArg);
             void* ptrResult = InvokeAsm(ptrFirst, ptrSecond, code);
@@ -75,10 +71,6 @@ namespace UseAsmCode
             {
                 result = ToInstance<Tret>(ptrResult);
             }
-            //firstAsmArg = (T1)firstHandle.Target;
-            //firstHandle.Free();
-            //secondAsmArg = (T2)secondHandle.Target;
-            //secondHandle.Free();
             typeof(GC).InvokeMember("EndNoGCRegion",
                 System.Reflection.BindingFlags.Public |
                 System.Reflection.BindingFlags.Static |
@@ -104,15 +96,9 @@ namespace UseAsmCode
                 System.Reflection.BindingFlags.Public |
                 System.Reflection.BindingFlags.Static |
                 System.Reflection.BindingFlags.InvokeMethod, null, null, new object[] { 0, true });
-            //GCHandle firstHandle = GCHandle.Alloc(firstAsmArg, GCHandleType.Pinned);
-            //GCHandle secondHandle = GCHandle.Alloc(secondAsmArg, GCHandleType.Pinned);
-            //void* ptrFirst = (void*)firstHandle.AddrOfPinnedObject();
-            //void* ptrSecond = (void*)secondHandle.AddrOfPinnedObject();
             void* ptrFirst = ToPointer(ref firstAsmArg);
             void* ptrSecond = ToPointer(ref secondAsmArg);
             InvokeAsm(ptrFirst, ptrSecond, code);
-            //firstHandle.Free();
-            //secondHandle.Free();
             typeof(GC).InvokeMember("EndNoGCRegion",
                  System.Reflection.BindingFlags.Public |
                  System.Reflection.BindingFlags.Static |
