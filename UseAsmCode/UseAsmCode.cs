@@ -24,6 +24,21 @@ namespace UseAsmCode
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void* InvokeAsm(void* firstAsmArg, void* secondAsmArg, byte[] code)
         {
+            GCHandle gcLock = GCHandle.Alloc(code, GCHandleType.Pinned);
+            return _invokeAsm(firstAsmArg, secondAsmArg, code);
+            gcLock.Free();
+        }
+        
+        /// <summary>
+        /// Передаёт управление машинному коду.
+        /// </summary>
+        /// <param name="firstAsmArg"> Первый аргумент, передаваемый машинному коду. При использовании SASM доступен как $first. </param>
+        /// <param name="secondAsmArg"> Второй аргумент, передаваемый машинному коду. При использовании SASM доступен как $second. </param>
+        /// <param name="code"> Двоичный код, которому будет передано управление. </param>
+        /// <returns> Возвращается значение EAX после выполнения машинного кода. </returns>
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        private static void* _invokeAsm(void* firstAsmArg, void* secondAsmArg, byte[] code)
+        {
             int i = 0;
             int* p = &i;
             p += 0x14 / 4 + 1;
