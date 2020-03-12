@@ -25,8 +25,9 @@ namespace UseAsmCode
         public static void* InvokeAsm(void* firstAsmArg, void* secondAsmArg, byte[] code)
         {
             GCHandle gcLock = GCHandle.Alloc(code, GCHandleType.Pinned);
-            return _invokeAsm(firstAsmArg, secondAsmArg, code);
+            void* result = _invokeAsm(firstAsmArg, secondAsmArg, code);
             gcLock.Free();
+            return result;
         }
         
         /// <summary>
