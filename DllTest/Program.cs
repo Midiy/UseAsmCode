@@ -268,7 +268,7 @@ namespace DllTest
                 _arr2[j + 1] = tmp;
             }
             finish = DateTime.Now;
-            Console.WriteLine($"Сортировка вставками на C# заняла: {finish - start2}.");
+            Console.WriteLine($"Сортировка вставками на C# заняла: {finish - start1}.");
             Array.Sort(_arr);
             bool equal = true;
             for (int i = 0; i < arraySize; i++)
@@ -281,13 +281,7 @@ namespace DllTest
                 }
             }
             if (equal) { Console.WriteLine("Массивы отсортированы корректно!"); }
-        }
-
-        private static void _saveByteCode(SASMCode _c)
-        {
-            System.IO.BinaryWriter writer = new System.IO.BinaryWriter(new System.IO.FileStream("bcode.bin", System.IO.FileMode.Create));
-            writer.Write(_c.Code);
-            writer.Close();
+            Console.ReadKey(true);
         }
     }
 }
